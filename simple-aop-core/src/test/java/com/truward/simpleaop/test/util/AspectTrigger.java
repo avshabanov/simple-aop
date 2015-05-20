@@ -1,4 +1,4 @@
-package com.alexshabanov.simpleaop.test.util;
+package com.truward.simpleaop.test.util;
 
 /**
  * @author Alexander Shabanov

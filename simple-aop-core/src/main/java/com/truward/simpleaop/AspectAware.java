@@ -1,6 +1,6 @@
-package com.alexshabanov.simpleaop;
+package com.truward.simpleaop;
 
-import com.alexshabanov.simpleaop.internal.*;
+import com.truward.simpleaop.internal.*;
 
 /**
  * This is a base interface that provides convenient methods for delegating calls.

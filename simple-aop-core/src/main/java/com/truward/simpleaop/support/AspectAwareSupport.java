@@ -1,7 +1,7 @@
-package com.alexshabanov.simpleaop.support;
+package com.truward.simpleaop.support;
 
-import com.alexshabanov.simpleaop.AroundAspect;
-import com.alexshabanov.simpleaop.AspectAware;
+import com.truward.simpleaop.AroundAspect;
+import com.truward.simpleaop.AspectAware;
 
 import java.util.Objects;
 

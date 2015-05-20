@@ -1,7 +1,7 @@
-package com.alexshabanov.simpleaop.test.util;
+package com.truward.simpleaop.test.util;
 
-import com.alexshabanov.simpleaop.AroundAspect;
-import com.alexshabanov.simpleaop.JoinPoint;
+import com.truward.simpleaop.AroundAspect;
+import com.truward.simpleaop.JoinPoint;
 
 /**
  * @author Alexander Shabanov

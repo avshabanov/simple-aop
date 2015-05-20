@@ -1,4 +1,4 @@
-package com.alexshabanov.simpleaop;
+package com.truward.simpleaop;
 
 /**
  * @author Alexander Shabanov
