@@ -7,7 +7,7 @@
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Simple AOP Root</name>
-  <url>https://github.com/avshabanov/ssimple-aop</url>
+  <url>https://github.com/avshabanov/simple-aop</url>
   <description>Simple AOP Root</description>
 
   <licenses>
@@ -41,7 +41,7 @@
     </repository>
   </distributionManagement>
 
-  <inceptionYear>2011</inceptionYear>
+  <inceptionYear>2015</inceptionYear>
 
   <developers>
     <developer>
@@ -91,26 +91,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <build>
-    <pluginManagement>
-      <plugins>
-        <!-- Clean plugin -->
-        <plugin>
-          <artifactId>maven-clean-plugin</artifactId>
-          <groupId>org.apache.maven.plugins</groupId>
-          <version>2.2</version>
-        </plugin>
-
-        <!-- Dependencies plugin -->
-        <plugin>
-          <artifactId>maven-dependency-plugin</artifactId>
-          <groupId>org.apache.maven.plugins</groupId>
-          <version>2.2</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
 
   <profiles>
 
