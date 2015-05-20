@@ -7,7 +7,8 @@ This is a small library without any external dependencies that enables aspect or
 using only features of java language, without any steps involving byte/source code generation, JDK proxies, cglib, etc.
 
 It has some limitations though:
-* Interfaces of the beans wrapped into aspects need to be defined in a special way (explained below).
+* Interfaces of the beans wrapped into aspects need to be defined in a special way (explained below). However there is no
+restriction for the method signatures.
 * Aspect is applied uniformly to all the interface methods.
 * No method or annotation-based filtering (after all this is pure Java, without any kind of reflection whatsoever).
 
@@ -22,7 +23,7 @@ interface BarService extends AspectAware<BarService> {
 
   default void foo() { $($()::foo); }
 
-  default void foo(int a, double b) { $($()::foo, a, b); }
+  default void bar(int a, double b) { $($()::bar, a, b); }
 
   default String getGreeting(String person) { return $($()::getGreeting, person); }
 }
@@ -43,8 +44,8 @@ class BarServiceImpl implements BarService {
   }
 
   @Override
-  public void foo(int a, double b) {
-    System.out.println("in foo method (a=" + a + ", b=" + b + ")");
+  public void bar(int a, double b) {
+    System.out.println("in bar method (a=" + a + ", b=" + b + ")");
   }
 
   @Override
