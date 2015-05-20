@@ -1,8 +1,6 @@
 package com.alexshabanov.simpleaop.test;
 
-import com.alexshabanov.simpleaop.AroundAspect;
 import com.alexshabanov.simpleaop.AspectAware;
-import com.alexshabanov.simpleaop.JoinPoint;
 import com.alexshabanov.simpleaop.support.AspectAwareSupport;
 import com.alexshabanov.simpleaop.test.util.AspectTrigger;
 import com.alexshabanov.simpleaop.test.util.SimpleTracingAspect;
@@ -54,7 +52,7 @@ public final class SimpleAspectAwareTest {
 
   private interface BarService extends AspectAware<BarService> {
     // default implementation just delegates service calls to the delegate
-    default String getGreeting(String message) { return callDelegate(getDelegate()::getGreeting, message); }
+    default String getGreeting(String message) { return $($()::getGreeting, message); }
   }
 
   private static final class BarServiceImpl implements BarService {

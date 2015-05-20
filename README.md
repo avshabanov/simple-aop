@@ -3,39 +3,96 @@ Simple AOP Support
 
 ## Overview
 
-This is a small library that enables aspect oriented programming in java 8 using only pure language features,
-without code generation, without JDK proxies, without cglib.
+This is a small library without any external dependencies that enables aspect oriented programming in java 8
+using only features of java language, without any steps involving byte/source code generation, JDK proxies, cglib, etc.
 
 It has some limitations though:
-* Interfaces of the beans wrapped into aspects need to be defined in a special way.
+* Interfaces of the beans wrapped into aspects need to be defined in a special way (explained below).
 * Aspect is applied uniformly to all the interface methods.
-* No method or annotation-based filtering (hey, after all it is pure Java, without any kind of reflection).
+* No method or annotation-based filtering (after all this is pure Java, without any kind of reflection whatsoever).
 
-## Sample
+## 1 Minute Overview
+
+Define interface of the class, you're going to wrap into an aspect:
 
 ```java
 // this is how aspect bean interface should be defined
-private interface BarService extends AspectAware<BarService> {
-  default String getGreeting(String message) { return callDelegate(getDelegate()::getGreeting, message); }
-}
+interface BarService extends AspectAware<BarService> {
+  // every method should be default and the default implementation should delegate method call
 
-// define aspect wrapper
-private static final class BarServiceProxy extends AspectAwareSupport<BarService> implements BarService {
-  public BarServiceProxy(BarService delegate, AroundAspect aroundAspect) {
-    super(delegate, aroundAspect);
-  }
-}
+  default void foo() { $($()::foo); }
 
-// ...
+  default void foo(int a, double b) { $($()::foo, a, b); }
 
-// Then in DI container:
-public BarService getBarService() {
-  final BarService service = new BarServiceImpl(/*args*/); // create "real" service instance
-  return new BarServiceProxy(service, getAroundAspect()); // return proxy that will wrap calls to bar service
-}
-
-public AroundAspect getAroundAspect() {
-  return NoopAroundAspect.INSTANCE; // simplest aspect that does nothing (just calls join point)
+  default String getGreeting(String person) { return $($()::getGreeting, person); }
 }
 ```
 
+Note, that every method in this interface should contain default behavior that delegates the call.
+
+Don't worry, you won't have to implement anything crazy when you'll start writing implementation of your interface:
+
+```java
+class BarServiceImpl implements BarService {
+  // regular implementation goes here, you don't need to override any method except
+  // for what is declared in BarService interface:
+
+  @Override
+  public void foo() {
+    System.out.println("in foo method");
+  }
+
+  @Override
+  public void foo(int a, double b) {
+    System.out.println("in foo method (a=" + a + ", b=" + b + ")");
+  }
+
+  @Override
+  public String getGreeting(String person) {
+    return "Hello, " + person;
+  }
+}
+```
+
+Then the most important part begins. You need to define an aspect and service proxy.
+Service proxy definition is always a no brainer:
+
+```java
+class BarServiceProxy extends AspectAwareSupport<BarService> implements BarService {
+  public BarServiceProxy(BarService delegate, AroundAspect aspect) { super(delegate, aspect); }
+}
+```
+
+Then in your DI container (or in whatever place you're creating instances of BarService) you need to
+create and return an instance of BarServiceProxy:
+
+```java
+public BarService createBarService() {
+  final AroundAspect aspect = /* Put aspect that you want to use here, for example: */NoopAroundAspect.INSTANCE;
+  final BarService service = new BarServiceImpl(/*args*/); // create original service instance
+  return new BarServiceProxy(service, aspect); // return proxy that will wrap calls to this service
+}
+```
+
+## How to define an aspect
+
+This is an example aspect definition that prints method arguments before method invocation and
+then prints method invocation result:
+
+```java
+class SimpleTracingAspect implements AroundAspect {
+
+  @Override
+  public Object call(JoinPoint joinPoint, Object... args) {
+    try {
+      System.out.println("[BEFORE] parameters=" + Arrays.toString(args));
+      final Object result = joinPoint.call();
+      System.out.println("[AFTER] result=" + result + "parameters=" + Arrays.toString(args));
+      return result;
+    } catch (RuntimeException e) {
+      trigger.fail(e);
+      throw e;
+    }
+  }
+}
+```

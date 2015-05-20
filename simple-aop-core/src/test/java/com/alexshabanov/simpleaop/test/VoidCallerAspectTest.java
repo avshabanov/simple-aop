@@ -35,7 +35,7 @@ public final class VoidCallerAspectTest {
   //
 
   private interface FooService extends AspectAware<FooService> {
-    default void foo(int a, char b) { callDelegate(getDelegate()::foo, a, b); }
+    default void foo(int a, char b) { $($()::foo, a, b); }
   }
 
   private static final class FooServiceProxy extends AspectAwareSupport<FooService> implements FooService {

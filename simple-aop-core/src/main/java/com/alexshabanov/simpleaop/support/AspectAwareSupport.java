@@ -22,12 +22,12 @@ public abstract class AspectAwareSupport<T> implements AspectAware<T> {
   }
 
   @Override
-  public final T getDelegate() {
+  public final T $() {
     return delegate;
   }
 
   @Override
-  public final AroundAspect getAspect() {
+  public final AroundAspect $aspect() {
     return aspect;
   }
 }
