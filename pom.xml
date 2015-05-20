@@ -4,7 +4,7 @@
 
   <groupId>com.alexshabanov.simpleaop</groupId>
   <artifactId>simple-aop-root</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Simple AOP Root</name>
   <url>https://github.com/avshabanov/simple-aop</url>
@@ -22,7 +22,7 @@
     <url>https://github.com/avshabanov/simple-aop</url>
     <developerConnection>scm:git:git@github.com:avshabanov/simple-aop.git</developerConnection>
     <connection>scm:git:git@github.com:avshabanov/simple-aop.git</connection>
-    <tag>simple-aop-root-1.0.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <issueManagement>
