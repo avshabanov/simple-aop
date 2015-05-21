@@ -91,7 +91,6 @@ class SimpleTracingAspect implements AroundAspect {
       System.out.println("[AFTER] result=" + result + "parameters=" + Arrays.toString(args));
       return result;
     } catch (RuntimeException e) {
-      trigger.fail(e);
       throw e;
     }
   }
