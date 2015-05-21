@@ -85,14 +85,10 @@ class SimpleTracingAspect implements AroundAspect {
 
   @Override
   public Object call(JoinPoint joinPoint, Object... args) {
-    try {
-      System.out.println("[BEFORE] parameters=" + Arrays.toString(args));
-      final Object result = joinPoint.call();
-      System.out.println("[AFTER] result=" + result + "parameters=" + Arrays.toString(args));
-      return result;
-    } catch (RuntimeException e) {
-      throw e;
-    }
+    System.out.println("[BEFORE] parameters=" + Arrays.toString(args));
+    final Object result = joinPoint.call();
+    System.out.println("[AFTER] result=" + result + "parameters=" + Arrays.toString(args));
+    return result;
   }
 }
 ```
