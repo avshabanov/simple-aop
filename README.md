@@ -97,3 +97,15 @@ class SimpleTracingAspect implements AroundAspect {
   }
 }
 ```
+
+## How to include
+
+Add to your pom.xml (use alternatives for ivy and similar build systems):
+
+```xml
+<dependency>
+  <groupId>com.truward.simpleaop</groupId>
+  <artifactId>simple-aop-core</artifactId>
+  <version>1.0.1</version>
+</dependency>
+```
